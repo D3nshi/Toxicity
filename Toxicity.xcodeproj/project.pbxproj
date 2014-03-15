@@ -306,6 +306,7 @@
 		E6EC551B18CB61CC005BE0FB /* tox_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6EC551818CB61CC005BE0FB /* tox_logo@2x.png */; };
 		E6F9FC9318C9068A00C1D2C1 /* TXCQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F9FC9218C9068A00C1D2C1 /* TXCQRCodeViewController.m */; };
 		E6F9FC9C18C90CF800C1D2C1 /* libQREncoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F9FC9918C90CA500C1D2C1 /* libQREncoder.a */; };
+		F22F339418D3A85900798D61 /* UIImageView+GradientImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F22F339318D3A85900798D61 /* UIImageView+GradientImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -810,6 +811,8 @@
 		E6F9FC8318C9028C00C1D2C1 /* QREncoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QREncoder.xcodeproj; path = ../Submodules/ObjQREncoder/src/QREncoder.xcodeproj; sourceTree = "<group>"; };
 		E6F9FC9118C9068A00C1D2C1 /* TXCQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXCQRCodeViewController.h; sourceTree = "<group>"; };
 		E6F9FC9218C9068A00C1D2C1 /* TXCQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXCQRCodeViewController.m; sourceTree = "<group>"; };
+		F22F339218D3A85900798D61 /* UIImageView+GradientImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+GradientImageView.h"; sourceTree = "<group>"; };
+		F22F339318D3A85900798D61 /* UIImageView+GradientImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+GradientImageView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2191,6 +2194,8 @@
 			children = (
 				D10DEA55B16B77901E909CA9 /* UIColor+ToxicityColors.m */,
 				D10DE558FA5CBC9EB58F8C63 /* UIColor+ToxicityColors.h */,
+				F22F339218D3A85900798D61 /* UIImageView+GradientImageView.h */,
+				F22F339318D3A85900798D61 /* UIImageView+GradientImageView.m */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -2537,6 +2542,7 @@
 				B9789F3118C040A5004F1257 /* open.c in Sources */,
 				B9789F4218C040A5004F1257 /* stream_aes128ctr_api.c in Sources */,
 				B9789EF318C040A5004F1257 /* hash_sha256.c in Sources */,
+				F22F339418D3A85900798D61 /* UIImageView+GradientImageView.m in Sources */,
 				B9789EF218C040A5004F1257 /* hash_sha256_api.c in Sources */,
 				B9789EF618C040A5004F1257 /* hashblocks_sha256_api.c in Sources */,
 				B9D85A2317CB0942005FD2D2 /* TXCRequestsTableViewController.m in Sources */,
