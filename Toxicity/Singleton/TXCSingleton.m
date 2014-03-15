@@ -7,6 +7,7 @@
 //
 
 #import "TXCSingleton.h"
+#import <CommonCrypto/CommonKeyDerivation.h>
 
 @implementation TXCSingleton
 
@@ -209,8 +210,17 @@
 
 - (void)fetchRobohashAvatarForKey:(NSString *)theKey type:(AvatarType)type finishBlock:(void (^)(UIImage *))finishBlock {
     //todo: changed the size based on display?
-    NSURL *roboHashURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://robohash.org/%@.png?size=96x96%@", theKey, (type == AvatarType_Group ? @"&set=set3" : @"")]];
+    NSData *keyData = [theKey dataUsingEncoding:NSASCIIStringEncoding];
+    NSData* salt = [@"Toxicity <3 sodium chloride" dataUsingEncoding:NSASCIIStringEncoding];
+    unsigned char theHashedKey[70];
+    CCKeyDerivationPBKDF(kCCPBKDF2, keyData.bytes, keyData.length, salt.bytes, salt.length, kCCPRFHmacAlgSHA256, 20000, theHashedKey, 70);
+    for (uint i = 0; i<70; i++) {
+        theHashedKey[i] %= 10;
+        theHashedKey[i] += 48;
+    }
+    NSURL *roboHashURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://robohash.org/%@.png?size=96x96%@", [[NSString alloc] initWithBytes:theHashedKey length:70 encoding:NSASCIIStringEncoding], (type == AvatarType_Group ? @"&set=set3" : @"")]];
     NSURLRequest *request = [NSURLRequest requestWithURL:roboHashURL];
+    NSLog(@"Robokey: %@",[[NSString alloc] initWithBytes:theHashedKey length:70 encoding:NSASCIIStringEncoding]);
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
