@@ -334,6 +334,10 @@ extern NSString *const TXCToxAppDelegateNotificationGroupInviteReceived;
     return 64;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //delete the friend from the table view, singleton, and messenger instance
