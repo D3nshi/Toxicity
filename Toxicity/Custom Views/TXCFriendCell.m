@@ -249,11 +249,17 @@
 
 -(void) configureBackroundColor {
     [self.contentView setFrame:CGRectMake(0., 0., 320., 64)];
-    [self.contentView addSubview:[UIImageView gradientImageViewFromColor:[UIColor colorWithHue:1.0f saturation:0.0f brightness:0.3f alpha:1.0f]
-                                      toColor:[UIColor colorWithHue:1.0f saturation:0.0f brightness:0.4f alpha:1.0f]
-                                     withSize:self.contentView.frame.size]];
     
-    
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        // iOS 6 table cells can have gradients
+        [self.contentView addSubview:[UIImageView gradientImageViewFromColor:[UIColor colorWithHue:1.0f saturation:0.0f brightness:0.3f alpha:1.0f] toColor:[UIColor colorWithHue:1.0f saturation:0.0f brightness:0.4f alpha:1.0f] withSize:self.contentView.frame.size]];
+    } else {
+        // iOS 7 table cells don't have gradients
+        UIView *bgView = [[UIView alloc] initWithFrame:self.contentView.frame];
+        [bgView setBackgroundColor:[UIColor colorWithHue:1.0f saturation:0.0f brightness:0.35f alpha:1.0f]];
+        [self.contentView addSubview:bgView];
+    }
+
 }
 
 
