@@ -73,9 +73,10 @@ extern NSString *const TXCToxAppDelegateNotificationFriendUserStatusChanged;
         TXCStatusLabel *statusLabel = [[TXCStatusLabel alloc] init];
 
         statusLabel.textAlignment = NSTextAlignmentCenter;
-        statusLabel.textColor = self.navigationController.navigationBar.tintColor;
-        statusLabel.font = [UIFont boldSystemFontOfSize:17.0];
+        statusLabel.textColor = [self.navigationController.navigationBar.titleTextAttributes objectForKey:UITextAttributeTextColor];
+        statusLabel.font = [self.navigationController.navigationBar.titleTextAttributes objectForKey:UITextAttributeFont];
         statusLabel.statusColor = [UIColor toxicityStatusColorGray];
+        statusLabel.backgroundColor = [UIColor clearColor];
 
         statusLabel;
     });
