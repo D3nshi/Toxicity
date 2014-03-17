@@ -334,6 +334,71 @@ extern NSString *const TXCToxAppDelegateNotificationGroupInviteReceived;
     return 64;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //delete the friend from the table view, singleton, and messenger instance
+        
+        TXCAppDelegate *ourDelegate = (TXCAppDelegate *)[UIApplication sharedApplication].delegate;
+        
+        if (indexPath.section == 0) {
+            
+            //group delete
+            int num = [ourDelegate deleteGroupchat:indexPath.row];
+            
+            if (num == 0) {
+                [self.tableView beginUpdates];
+                
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                
+                [[TXCSingleton sharedSingleton].groupList removeObjectAtIndex:indexPath.row];
+                [[TXCSingleton sharedSingleton].groupMessages removeObjectAtIndex:indexPath.row];
+                
+                //todo: save when i start saving these things
+                
+                [self.tableView endUpdates];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                message:@"Something went wrong ith deleting the group chat! Tox Core issue."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Okay"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+            
+        } else {
+            
+            //friend delete
+            TXCFriendObject *tempFriend = self.mainFriendList[indexPath.row];
+            int num = [ourDelegate deleteFriend:tempFriend.publicKey];
+            
+            if (num == 0) {
+                [self.tableView beginUpdates];
+                
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                
+                [[TXCSingleton sharedSingleton].mainFriendList removeObjectAtIndex:indexPath.row];
+                [[TXCSingleton sharedSingleton].mainFriendMessages removeObjectAtIndex:indexPath.row];
+                
+                //save in user defaults
+                [TXCSingleton saveFriendListInUserDefaults];
+                
+                [self.tableView endUpdates];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                message:@"Something went wrong with deleting the friend! Tox Core issue."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Okay"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+        
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
